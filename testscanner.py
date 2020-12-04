@@ -14,6 +14,6 @@ if scanner.f_ptr is not None:
                 token.type, token.lexeme, token.value, token.funcptr))
         else:
             break
-    print("文本程序共", scanner.LineNo, "行")
+    print("The text has", scanner.LineNo, "lines.")
 else:
-    print("打开文件失败")
+    print("File open failed")

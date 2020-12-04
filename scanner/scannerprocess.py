@@ -4,7 +4,7 @@ import os
 
 class Scanner:
     def __init__(self, f_name):
-        self.LineNo = 0
+        self.LineNo = 1
         self.TokenBuffer = ''
         self.f_name = f_name
         if os.path.exists(self.f_name):
@@ -22,7 +22,9 @@ class Scanner:
 
     def BackChar(self, Char):
         if Char != '':
+            # print(self.f_ptr.tell())
             self.f_ptr.seek(self.f_ptr.tell() - 1)
+            # print(self.f_ptr.tell())
 
     def AddCharTokenString(self, Char):
         self.TokenBuffer += Char
