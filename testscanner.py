@@ -4,7 +4,7 @@ import scanner.scannerprocess as scannerprocess
 f_name = 'graphic.txt'
 scanner = scannerprocess.Scanner(f_name)
 
-if scanner.f_ptr is not None:
+if scanner.filepointer is not None:
     print("token_type           lexeme          value       ptr")
     print("------------------------------------------------------")
     while True:                                                             # 一次读入一个token

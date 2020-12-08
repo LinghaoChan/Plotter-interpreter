@@ -8,23 +8,23 @@ class Scanner:
         self.TokenBuffer = ''
         self.f_name = f_name
         if os.path.exists(self.f_name):
-            self.f_ptr = open(self.f_name, "r")
+            self.filepointer = open(self.f_name, "r")
         else:
-            self.f_ptr = None
+            self.filepointer = None
 
-    def CloseScanner(self):
-        if self.f_ptr is None:
-            self.f_ptr.close()
+    def Exit_Scanner(self):
+        if self.filepointer is None:
+            self.filepointer.close()
 
     def GetChar(self):
-        Char = self.f_ptr.read(1)   # 读取一个字符
+        Char = self.filepointer.read(1)   # 读取一个字符
         return Char.upper()         # 转化为大写
 
     def BackChar(self, Char):
         if Char != '':
-            # print(self.f_ptr.tell())
-            self.f_ptr.seek(self.f_ptr.tell() - 1)
-            # print(self.f_ptr.tell())
+            # print(self.filepointer.tell())
+            self.filepointer.seek(self.filepointer.tell() - 1)
+            # print(self.filepointer.tell())
 
     def AddCharTokenString(self, Char):
         self.TokenBuffer += Char
