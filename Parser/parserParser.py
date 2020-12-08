@@ -12,6 +12,7 @@ class Parser(object):
     Statement →  OriginStatment | ScaleStatment |  RotStatment    | ForStatment
     OriginStatment → ORIGIN IS L_BRACKET Expression COMMA Expression R_BRACKET
     ScaleStatment  → SCALE IS L_BRACKET Expression COMMA Expression R_BRACKET
+    ForStatment  → FOR T FROM Expression TO Expression STEP Expression DRAW L_BRACKET Expression COMMA Expression R_BRACKET
     RotStatment → ROT IS Expression
     Expression 	→ Term   { ( PLUS | MINUS ) Term } 
     Term       	→ Factor { ( MUL | DIV ) Factor }
