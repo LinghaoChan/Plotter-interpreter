@@ -3,6 +3,22 @@ import os
 
 
 class Scanner:
+    """
+    letter	  = [a-zA-Z_]
+    digit	  = [0-9] 
+    ID        = letter+ (letter|dight)*
+    CONST_ID  = digit+ ("." digit*)?
+    POWER     = "**"
+    COMMENT   = "//"|"--"
+    SEMICO    = ";"
+    L_BRACKET = "("
+    R_BRACKET = ")"
+    COMMA     = ","
+    PLUS      = "+"
+    MINUS     = "-"
+    MUL       = "*"
+    DIV       = "/"
+    """
     def __init__(self, f_name):
         self.LineNo = 1
         self.TokenBuffer = ''
