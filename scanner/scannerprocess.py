@@ -1,4 +1,4 @@
-import scanner.scanner_token as scanner_token
+import scanner.scanner_token as st
 import os
 
 
@@ -33,10 +33,10 @@ class Scanner:
         self.TokenBuffer = ''
 
     def JudgeKeyToken(self):  # 获取Token
-        Token = scanner_token.TokenTab.get(self.TokenBuffer,
-                                           scanner_token.Tokens(scanner_token.Token_Type.ERRTOKEN, self.TokenBuffer,
+        Token = st.TokenTab.get(self.TokenBuffer,
+                                           st.Tokens(st.Token_Type.ERRTOKEN, self.TokenBuffer,
                                                                 0.0, None))
-        # Token = scanner_token.Tokens(scanner_token.TokenTab.get(self.TokenBuffer), self.TokenBuffer, 0.0, None)
+        # Token = st.Tokens(st.TokenTab.get(self.TokenBuffer), self.TokenBuffer, 0.0, None)
 
         return Token
 
@@ -47,7 +47,7 @@ class Scanner:
         while True:
             Char = self.GetChar()
             if Char == '':
-                token = scanner_token.Tokens(scanner_token.Token_Type.NONTOKEN, Char, 0.0, None)
+                token = st.Tokens(st.Token_Type.NONTOKEN, Char, 0.0, None)
 
                 return token
             if Char == '\n':
@@ -85,21 +85,21 @@ class Scanner:
                     else:
                         break
             self.BackChar(Char)
-            token = scanner_token.Tokens(
-                scanner_token.Token_Type.CONST_ID, self.TokenBuffer, float(self.TokenBuffer), None)
+            token = st.Tokens(
+                st.Token_Type.CONST_ID, self.TokenBuffer, float(self.TokenBuffer), None)
 
             return token
         else:
             if Char == ';':
-                token = scanner_token.Tokens(scanner_token.Token_Type.SEMICO, Char, 0.0, None)
+                token = st.Tokens(st.Token_Type.SEMICO, Char, 0.0, None)
             elif Char == '(':
-                token = scanner_token.Tokens(scanner_token.Token_Type.L_BRACKET, Char, 0.0, None)
+                token = st.Tokens(st.Token_Type.L_BRACKET, Char, 0.0, None)
             elif Char == ')':
-                token = scanner_token.Tokens(scanner_token.Token_Type.R_BRACKET, Char, 0.0, None)
+                token = st.Tokens(st.Token_Type.R_BRACKET, Char, 0.0, None)
             elif Char == ',':
-                token = scanner_token.Tokens(scanner_token.Token_Type.COMMA, Char, 0.0, None)
+                token = st.Tokens(st.Token_Type.COMMA, Char, 0.0, None)
             elif Char == '+':
-                token = scanner_token.Tokens(scanner_token.Token_Type.PLUS, Char, 0.0, None)
+                token = st.Tokens(st.Token_Type.PLUS, Char, 0.0, None)
             elif Char == '-':
                 Char = self.GetChar()
                 if Char == '-':                         # “--”为注释
@@ -109,7 +109,7 @@ class Scanner:
                     return self.GetToken()
                 else:                                   # 非注释,minus
                     self.BackChar(Char)
-                    token = scanner_token.Tokens(scanner_token.Token_Type.MINUS, '-', 0.0, None)
+                    token = st.Tokens(st.Token_Type.MINUS, '-', 0.0, None)
             elif Char == '/':
                 Char = self.GetChar()
                 if Char == '/':                         # “//”为注释
@@ -119,17 +119,17 @@ class Scanner:
                     return self.GetToken()
                 else:                                   # 非注释,div
                     self.BackChar(Char)
-                    token = scanner_token.Tokens(scanner_token.Token_Type.DIV, '/', 0.0, None)
+                    token = st.Tokens(st.Token_Type.DIV, '/', 0.0, None)
             elif Char == '*':
                 Char = self.GetChar()
                 if Char == '*':                         # 乘方
-                    token = scanner_token.Tokens(scanner_token.Token_Type.POWER, '**', 0.0, None)
+                    token = st.Tokens(st.Token_Type.POWER, '**', 0.0, None)
                 else:                                   # 乘法运算符
                     self.BackChar(Char)
-                    token = scanner_token.Tokens(scanner_token.Token_Type.MUL, '*', 0.0, None)
+                    token = st.Tokens(st.Token_Type.MUL, '*', 0.0, None)
             else:
                 if Char == ' ' or Char == '\n':
                     return self.GetToken()              # 语句结束
                 else:
-                    token = scanner_token.Tokens(scanner_token.Token_Type.ERRTOKEN, Char, 0.0, None)
+                    token = st.Tokens(st.Token_Type.ERRTOKEN, Char, 0.0, None)
         return token
