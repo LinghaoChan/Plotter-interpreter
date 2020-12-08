@@ -1,4 +1,4 @@
-import scanner.scanner_token as st
+import scanner.token as st
 import scanner.scannerprocess as sp
 
 f_name = 'graphic.txt'
