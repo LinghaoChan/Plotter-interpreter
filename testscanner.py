@@ -1,7 +1,7 @@
 import scanner.token as st
 import scanner.scannerprocessor as sp
 
-f_name = 'graphic.txt'
+f_name = 'test.txt'
 scanner = sp.Scanner(f_name)
 
 if scanner.filepointer is not None:
