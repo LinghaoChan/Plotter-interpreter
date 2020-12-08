@@ -1,5 +1,5 @@
 import scanner.token as st
-import scanner.scannerprocess as sp
+import scanner.scannerprocessor as sp
 
 f_name = 'graphic.txt'
 scanner = sp.Scanner(f_name)
