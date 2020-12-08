@@ -43,13 +43,13 @@ class Scanner:
             self.filepointer.seek(self.filepointer.tell() - 1)
             # print(self.filepointer.tell())
 
-    def AddCharTokenString(self, Char):
+    def addToBuffer(self, Char):
         self.TokenBuffer += Char
 
     def EmptyTokenString(self):
         self.TokenBuffer = ''
 
-    def JudgeKeyToken(self):  # 获取Token
+    def JudgeKeyToken(self):  # 获取关键词Token
         Token = st.TokenTab.get(self.TokenBuffer,
                                 st.Tokens(st.Token_Type.ERRTOKEN, self.TokenBuffer,
                                           0.0, None))
@@ -71,13 +71,13 @@ class Scanner:
                 self.LineNo += 1
             if ~Char.isspace():
                 break
-        self.AddCharTokenString(Char)
+        self.addToBuffer(Char)
 
         if Char.isalpha():                          # 字母打头的字母数字串
             while True:
                 Char = self.GetChar()
                 if Char.isalnum():                  # 是否是字母数字串
-                    self.AddCharTokenString(Char)   # 加入token字符串
+                    self.addToBuffer(Char)   # 加入token字符串
                 else:
                     break
             self.BackChar(Char)
@@ -90,15 +90,15 @@ class Scanner:
             while True:
                 Char = self.GetChar()
                 if Char.isdigit():
-                    self.AddCharTokenString(Char)
+                    self.addToBuffer(Char)
                 else:
                     break
             if Char == '.':                         # 识别小数
-                self.AddCharTokenString(Char)
+                self.addToBuffer(Char)
                 while True:                         # 识别小数部分
                     Char = self.GetChar()
                     if Char.isdigit():
-                        self.AddCharTokenString(Char)
+                        self.addToBuffer(Char)
                     else:
                         break
             self.BackChar(Char)
