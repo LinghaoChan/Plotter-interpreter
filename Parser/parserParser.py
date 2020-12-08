@@ -22,6 +22,7 @@ class Parser(object):
           | FUNC L_BRACKET Expression R_BRACKET
           | L_BRACKET Expression R_BRACKET 
     """
+
     def __init__(self, scanner):
         self.scanner = scanner
         self.token = None
@@ -47,9 +48,9 @@ class Parser(object):
 
     def printtree(self, x):
         self.PreorderPrintTree(x, 1)
-    
+
     # 打印语法树,前序遍历
-    def PreorderPrintTree(self, node, index_range): 
+    def PreorderPrintTree(self, node, index_range):
         for i in range(index_range):
             print('---  ', end=' ')
         if node.item == st.Token_Type.PLUS:
@@ -93,7 +94,7 @@ class Parser(object):
             # print(self.x_origin, self.y_origin)
 
     # Program  →  { Statement SEMICO }
-    def Program(self): 
+    def Program(self):
         self.getinto("The Program")
         while self.token.type != st.Token_Type.SEMICO:
             self.Statement()                                    # Statement
@@ -114,7 +115,8 @@ class Parser(object):
             self.ForStatement()
         else:
             print(self.token.type)
-            print("Error line number：", self.scanner.LineNo, " dosen't expected token： ", self.token.lexeme)
+            print("Error line number：", self.scanner.LineNo,
+                  " dosen't expected token： ", self.token.lexeme)
             self.scanner.Exit_Scanner()
             sys.exit(1)
         self.exitmodule("The Statement")
@@ -264,7 +266,7 @@ class Parser(object):
     # Atom → CONST_ID
     #       | T
     #       | FUNC L_BRACKET Expression R_BRACKET
-    #       | L_BRACKET Expression R_BRACKET 
+    #       | L_BRACKET Expression R_BRACKET
     def Atom(self):
         if self.token.type == st.Token_Type.CONST_ID:
             tmp = self.token.value                         # 获取当前常数具体值
@@ -297,7 +299,8 @@ class Parser(object):
             self.tokenMatchedSuccessed(")")
         else:
             print(self.token.type)
-            print("Error line number: ", self.scanner.LineNo, " dosen't expected token: ", self.token.lexeme)
+            print("Error line number: ", self.scanner.LineNo,
+                  " dosen't expected token: ", self.token.lexeme)
             self.scanner.Exit_Scanner()
             sys.exit(1)
         # print(node)
@@ -325,14 +328,16 @@ class Parser(object):
             self.token = self.scanner.GetToken()
         if self.token == st.Token_Type.ERRTOKEN:
             print(self.token.type)
-            print("Error line number：", self.scanner.LineNo, " token error ", self.token.lexeme)
+            print("Error line number：", self.scanner.LineNo,
+                  " token error ", self.token.lexeme)
             self.scanner.Exit_Scanner()
             sys.exit(1)
 
     def MatchToken(self, ttype):
         if self.token.type != ttype:
             print(self.token.type)
-            print("Error line number：", self.scanner.LineNo, " dosen't expected token ", self.token.lexeme)
+            print("Error line number：", self.scanner.LineNo,
+                  " dosen't expected token ", self.token.lexeme)
             self.scanner.Exit_Scanner()
             sys.exit(1)
         if ttype == st.Token_Type.SEMICO:

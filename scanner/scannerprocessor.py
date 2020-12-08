@@ -19,6 +19,7 @@ class Scanner:
     MUL       = "*"
     DIV       = "/"
     """
+
     def __init__(self, f_name):
         self.LineNo = 1
         self.TokenBuffer = ''
@@ -50,8 +51,8 @@ class Scanner:
 
     def JudgeKeyToken(self):  # 获取Token
         Token = st.TokenTab.get(self.TokenBuffer,
-                                           st.Tokens(st.Token_Type.ERRTOKEN, self.TokenBuffer,
-                                                                0.0, None))
+                                st.Tokens(st.Token_Type.ERRTOKEN, self.TokenBuffer,
+                                          0.0, None))
         # Token = st.Tokens(st.TokenTab.get(self.TokenBuffer), self.TokenBuffer, 0.0, None)
 
         return Token
@@ -84,7 +85,7 @@ class Scanner:
             token.lexme = self.TokenBuffer          # token的内容
 
             return token
-        
+
         elif Char.isdigit():                        # 整数或小数
             while True:
                 Char = self.GetChar()
@@ -120,7 +121,7 @@ class Scanner:
                 Char = self.GetChar()
                 if Char == '-':                         # “--”为注释
                     while Char != '\n' and Char != '':  # 注释直接读到行尾并丢弃
-                        Char = self.GetChar()       
+                        Char = self.GetChar()
                     self.BackChar(Char)
                     return self.GetToken()
                 else:                                   # 非注释,minus

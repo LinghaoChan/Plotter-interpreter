@@ -20,6 +20,7 @@ class ExprNode(object):
     |  Function  |  functionpointer  |  middle  |  value  |
     -------------------------------------------------------
     """
+
     def __init__(self, item):
         self.item = item
         # 确定双目运算符的左右孩子
@@ -43,7 +44,8 @@ class ExprNode(object):
             self.value = self.left.value / self.right.value
         elif self.item == st.Token_Type.MINUS:
             self.value = self.left.value - self.right.value
-            
+
         elif self.item == st.Token_Type.FUNC:
-            self.value = self.functionpointer(self.middle.value)       # 完成函数计算功能
+            self.value = self.functionpointer(
+                self.middle.value)       # 完成函数计算功能
         return self.value
