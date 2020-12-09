@@ -218,7 +218,7 @@ class Parser(object):
             tmp = self.token.type
             self.MatchToken(tmp)
             right = self.Term()
-            left = self.MakeExprNode(tmp, left, right)
+            left = self.CreateAnExprNode(tmp, left, right)
         self.printtree(left)           # 打印表达式语法树
         self.exitmodule("The Expression")
         # print(left)
@@ -231,7 +231,7 @@ class Parser(object):
             tmp = self.token.type
             self.MatchToken(tmp)
             right = self.Factor()
-            left = self.MakeExprNode(tmp, left, right)     # 左节点指向新的复介电
+            left = self.CreateAnExprNode(tmp, left, right)     # 左节点指向新的复介电
         # print(left)
         return left                                         # 返回父节点
 
@@ -241,14 +241,14 @@ class Parser(object):
             self.MatchToken(st.Token_Type.PLUS)
             right = self.Factor()                       # 右侧是Factor
             left = None                                 # 加号的左侧是空，不需要处理
-            right = self.MakeExprNode(
+            right = self.CreateAnExprNode(
                 st.Token_Type.PLUS, left, right)
         elif self.token.type == st.Token_Type.MINUS:
             self.MatchToken(st.Token_Type.MINUS)
             right = self.Factor()                       # 右侧是Factor
             left = pn.ExprNode(st.Token_Type.CONST_ID)
             left.value = 0.0                            # 减号的左侧是0.0，将负数升级为表达式
-            right = self.MakeExprNode(
+            right = self.CreateAnExprNode(
                 st.Token_Type.MINUS, left, right)
         else:
             right = self.Component()
@@ -260,7 +260,7 @@ class Parser(object):
         if self.token.type == st.Token_Type.POWER:
             self.MatchToken(st.Token_Type.POWER)
             right = self.Component()            # 递归生成右结点
-            left = self.MakeExprNode(           # 构造树：Atom —— POWER —— Component
+            left = self.CreateAnExprNode(           # 构造树：Atom —— POWER —— Component
                 st.Token_Type.POWER, left, right)
         return left
 
@@ -272,15 +272,15 @@ class Parser(object):
         if self.token.type == st.Token_Type.CONST_ID:
             tmp = self.token.value                         # 获取当前常数具体值
             self.MatchToken(st.Token_Type.CONST_ID)
-            node = self.MakeExprNode_CONST(
+            node = self.CreateAnExprNode_CONST(
                 st.Token_Type.CONST_ID, tmp)    # 构造这个常数节点
         elif self.token.type == st.Token_Type.T:
             self.MatchToken(st.Token_Type.T)
             if len(self.Tvalue) == 1:
-                node = self.MakeExprNode_CONST(
+                node = self.CreateAnExprNode_CONST(
                     st.Token_Type.T, 0.0)
             else:
-                node = self.MakeExprNode_CONST(
+                node = self.CreateAnExprNode_CONST(
                     st.Token_Type.T, self.Tvalue)
         elif self.token.type == st.Token_Type.FUNC:  # FUNC L_BRACKET Expression R_BRACKET
             temp_ptr = self.token.funcptr
@@ -288,7 +288,7 @@ class Parser(object):
             self.MatchToken(st.Token_Type.L_BRACKET)
             self.tokenMatchedSuccessed("(")
             tmp = self.Expression()
-            node = self.MakeExprNode(
+            node = self.CreateAnExprNode(
                 st.Token_Type.FUNC, temp_ptr, tmp)  # FUNC, 函数指针, 函数内部
             self.MatchToken(st.Token_Type.R_BRACKET)
             self.tokenMatchedSuccessed(")")
@@ -307,7 +307,7 @@ class Parser(object):
         # print(node)
         return node
 
-    def MakeExprNode(self, item, left, right):
+    def CreateAnExprNode(self, item, left, right):
         expr = pn.ExprNode(item)
         if item == st.Token_Type.FUNC:
             expr.functionpointer = left             # 函数功能计算
@@ -318,7 +318,7 @@ class Parser(object):
         expr.GetValue()                      # 计算左右孩子的操作结果
         return expr
 
-    def MakeExprNode_CONST(self, item, value):
+    def CreateAnExprNode_CONST(self, item, value):
         expr = pn.ExprNode(item)
         expr.value = value
         return expr
