@@ -10,7 +10,7 @@ class Semantic(pp.Parser):
         self.fig = plt.figure()
         self.ax = self.fig.add_subplot(111)
 
-    def calc(self, x, y):
+    def setting(self, x, y):
         # print(x)
         # print(y)
         x *= self.x_scale
@@ -26,7 +26,7 @@ class Semantic(pp.Parser):
         return x, y
 
     def Draw(self):
-        x, y = self.calc(self.x_ptr, self.y_ptr)
+        x, y = self.setting(self.x_ptr, self.y_ptr)
         self.ax.scatter(x, y)
 
     def Statement(self):                    # 重写Statement方法
@@ -42,7 +42,7 @@ class Semantic(pp.Parser):
             self.RotStatement()
         else:
             print(self.token.type)
-            print("出错行号：", self.scanner.LineNo, " 与期望记号不符 ", self.token.lexeme)
+            print("Error line number:", self.scanner.LineNo, " token doesn't expected ", self.token.lexeme)
             self.scanner.Exit_Scanner()
             sys.exit(1)
         self.exitmodule("Statement")
@@ -50,7 +50,7 @@ class Semantic(pp.Parser):
     def Parser(self):                       # 重写Parser方法
         self.getinto("Parser")
         if self.scanner.filepointer is None:
-            print("文件打开失败")
+            print("File open error.")
         else:
             self.GetToken()
             self.Program()
