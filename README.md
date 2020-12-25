@@ -13,16 +13,16 @@
 
 ```
 │-- run.py                  (entrance of the program)
-│-- test.txt		        (test examples)
+│-- test.txt                (test examples)
 │-- testparser.py           (test program for parser)
 │-- testscanner.py          (test program for scanner)
-├─Parser				    (grammer analysis)
+├─Parser                    (grammer analysis)
 │  │-- parserParser.py      (grammer analysis module)
 │  │-- parser_exprnode.py   (define the data structure of grammer tree node)
 ├─scanner                   (scanner analysis)
 │  │-- scannerprocessor.py  (scanner analysis module)
-│  │-- token.py			    (define the data structure of tokens)
-└─semantic		            (semantic analysis)
+│  │-- token.py             (define the data structure of tokens)
+└─semantic                  (semantic analysis)
    │-- semantic.py          (semantic analysis module)
 ```
 
